@@ -63,55 +63,47 @@ namespace FileStreams
         // 1. Escreve ficheiro em modo de texto
         private static void EscreverTexto()
         {
-            TextWriter tw = File.CreateText(filenameText);
+            using TextWriter tw = File.CreateText(filenameText);
 
             tw.WriteLine(dataString);
             tw.WriteLine(dataFloat);
             tw.WriteLine(dataInt);
-
-            tw.Close();
         }
 
         // 2. Lê ficheiro em modo de texto
         private static void LerTexto()
         {
-            TextReader tr = File.OpenText(filenameText);
+            using TextReader tr = File.OpenText(filenameText);
 
             string str = tr.ReadLine();
             float fl = float.Parse(tr.ReadLine());
             int i = int.Parse(tr.ReadLine());
 
             Console.WriteLine(str+" "+fl+" "+i);
-
-            tr.Close();
         }
 
         // 3. Escreve ficheiro em modo binário
         private static void EscreverBin()
         {
-            Stream fs = File.Create(filenameBinary);
-            BinaryWriter bw = new BinaryWriter(fs);
+            using Stream fs = File.Create(filenameBinary);
+            using BinaryWriter bw = new BinaryWriter(fs);
 
             bw.Write(dataString);
             bw.Write(dataFloat);
             bw.Write(dataInt);
-            
-            bw.Close();
         }
 
         // 4. Lê ficheiro em modo binário
         private static void LerBin()
         {
-            Stream fr = File.OpenRead(filenameBinary);
-            BinaryReader br = new BinaryReader(fr);
+            using Stream fr = File.OpenRead(filenameBinary);
+            using BinaryReader br = new BinaryReader(fr);
 
             string str = br.ReadString();
             float fl = br.ReadSingle();
             int i = br.ReadInt32();
 
             Console.WriteLine(str+" "+fl+" "+i);
-
-            br.Close();
         }
     }
 }
